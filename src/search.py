@@ -52,7 +52,7 @@ def search_prompt(question=None):
         llm = ChatGoogleGenerativeAI(model=llm_model_name, temperature=0)
 
     vector_store = PGVector(collection_name=collection_name, connection=connection_string, embeddings=embeddings)
-    retriever = vector_store.as_retriever()
+    retriever = vector_store.as_retriever(search_kwargs={"k": 10})
     prompt = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
 
     rag_chain = (
